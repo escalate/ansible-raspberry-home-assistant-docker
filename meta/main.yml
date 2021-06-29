@@ -1,0 +1,23 @@
+galaxy_info:
+  role_name: home_assistant
+  namespace: escalate
+  author: Felix Boerner
+  description: Manage Home Assistant Docker container with systemd on Raspberry Pi OS
+  license: MIT
+  min_ansible_version: 2.10
+  github_branch: master
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+  galaxy_tags:
+    - raspberry
+    - pi
+    - raspberrypi
+    - systemd
+    - docker
+    - home
+    - assistant
+    - hass
+    - homeassistant
+dependencies: []

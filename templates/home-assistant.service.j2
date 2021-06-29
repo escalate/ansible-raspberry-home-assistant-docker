@@ -1,0 +1,36 @@
+[Unit]
+Description=Home Assistant
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop %n
+ExecStartPre=-/usr/bin/docker rm %n
+ExecStartPre=/usr/bin/docker pull homeassistant/home-assistant:{{ home_assistant_docker_image_version }}
+ExecStart=/usr/bin/docker run \
+--name %n \
+--memory={{ home_assistant_docker_memory }} \
+{% if home_assistant_env_vars | dict2items | length > 0 %}
+--env-file={{ home_assistant_etc_path }}/home-assistant.env \
+{% endif %}
+{% if home_assistant_docker_labels | dict2items | length > 0 %}
+--label-file={{ home_assistant_etc_path }}/home-assistant.label \
+{% endif %}
+--mount=type=bind,source={{ home_assistant_data_path }},destination=/config \
+--mount=type=bind,source={{ home_assistant_data_path }}/docker/run,destination=/etc/services.d/home-assistant/run \
+--network={{ home_assistant_docker_network }} \
+--network-alias=home-assistant \
+--publish={{ home_assistant_bind_address }}:8123:8123 \
+homeassistant/home-assistant:{{ home_assistant_docker_image_version }}
+ExecStop=/usr/bin/docker stop %n
+SyslogIdentifier=%n
+TimeoutStartSec=infinity
+TimeoutStopSec=infinity
+StartLimitInterval=30
+StartLimitBurst=5
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

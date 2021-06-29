@@ -1,0 +1,101 @@
+- name: Add use
+  ansible.builtin.user:
+    name: home-assistant
+    uid: 9000
+    create_home: false
+    shell: /sbin/nologin
+    groups: "{{ home_assistant_additional_user_groups }}"
+
+- name: Create read-only directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  loop:
+    - "{{ home_assistant_etc_path }}"
+
+- name: Create writeable data directories
+  ansible.builtin.file:
+    path: "{{ home_assistant_data_path }}"
+    state: directory
+    owner: home-assistant
+    group: home-assistant
+    mode: 0700
+
+- name: Define environment variables
+  community.general.ini_file:
+    path: "{{ home_assistant_etc_path }}/home-assistant.env"
+    section: ""
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+    no_extra_spaces: true
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ home_assistant_env_vars | dict2items }}"
+  notify: Restart home-assistant service
+
+- name: Define Docker container labels
+  community.general.ini_file:
+    path: "{{ home_assistant_etc_path }}/home-assistant.label"
+    section: ""
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+    no_extra_spaces: true
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ home_assistant_docker_labels | dict2items }}"
+  notify: Restart home-assistant service
+
+- name: Create Docker non-root start script
+  ansible.builtin.git:
+    repo: https://github.com/tribut/homeassistant-docker-venv.git
+    dest: "{{ home_assistant_data_path }}/docker"
+    version: v2.2
+  notify: Restart home-assistant service
+
+- name: Create configuration yaml
+  ansible.builtin.template:
+    src: configuration.yaml.j2
+    dest: "{{ home_assistant_data_path }}/configuration.yaml"
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart home-assistant service
+
+- name: Pull Docker image
+  community.general.docker_image:
+    name: "homeassistant/home-assistant:{{ home_assistant_docker_image_version }}"
+    source: pull
+
+- name: Create systemd service
+  ansible.builtin.template:
+    src: home-assistant.service.j2
+    dest: /etc/systemd/system/home-assistant.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart home-assistant service
+
+- name: Start and enable service
+  ansible.builtin.systemd:
+    name: home-assistant
+    state: started
+    enabled: true
+    daemon_reload: true
+
+- name: Force all notified handlers to run at this point
+  meta: flush_handlers
+
+- name: Wait for service to become available
+  ansible.builtin.uri:
+    url: http://localhost:8123/api/
+    status_code:
+      - 401
+  register: result
+  until: result.status == 401
+  retries: 60
+  delay: 1
