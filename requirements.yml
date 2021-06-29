@@ -1,0 +1,6 @@
+roles:
+  - name: common
+    src: escalate.common
+
+  - name: docker
+    src: escalate.docker

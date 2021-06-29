@@ -1,0 +1,44 @@
+{% if item.registry is defined %}
+FROM {{ item.registry.url }}/{{ item.image }}
+{% else %}
+FROM {{ item.image }}
+{% endif %}
+
+{% if item.env is defined %}
+{% for var, value in item.env.items() %}
+{% if value %}
+ENV {{ var }} {{ value }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+ENV container docker
+ENV LC_ALL=C TZ=UTC TERM=xterm-256color
+
+RUN export DEBIAN_FRONTEND=noninteractive ; \
+      export APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1 ; \
+      apt-get update \
+      && apt-get install -y --no-install-recommends systemd systemd-sysv dbus bash sudo procps curl ca-certificates iproute2 python3 python3-pip python3-dev python3-setuptools python3-wheel python3-apt aptitude \
+      && apt-get clean \
+      && rm -rf /usr/share/doc/* /usr/share/man/* /var/lib/apt/lists/* /tmp/* /var/tmp/*;
+
+# Don't start any optional services except for the few we need.
+# Ignore any errors since some directories could not exists on some distributions
+RUN find /etc/systemd/system \
+      /lib/systemd/system \
+      /usr/lib/systemd/system \
+      -path '*.wants/*' \
+      -not -name '*dbus*' \
+      -not -name '*journald*' \
+      -not -name '*systemd-tmpfiles*' \
+      -not -name '*systemd-user-sessions*' \
+      -exec rm \{} \; ; >/dev/null 2>&1
+
+# If image does have systemd set the default to be multi-user else leave it as is.
+RUN if [ $(command -v systemctl) ]; then \
+      systemctl set-default multi-user.target; \
+    fi
+
+STOPSIGNAL SIGRTMIN+3
+VOLUME [ "/sys/fs/cgroup" ]
+CMD ["/sbin/init"]

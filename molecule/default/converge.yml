@@ -1,0 +1,22 @@
+- name: Converge
+  hosts: all
+  vars:
+    home_assistant_docker_image_version: latest
+    home_assistant_docker_memory: 1G
+    home_assistant_docker_labels:
+      maintainer: me@example.com
+    home_assistant_docker_network: internal
+    home_assistant_data_path: /var/lib/home-assistant
+    home_assistant_etc_path: /etc/home-assistant
+    home_assistant_bind_address: 127.0.0.1
+    home_assistant_additional_user_groups:
+      - tty
+    home_assistant_env_vars:
+      PUID: 9000
+      PGID: 9000
+      PACKAGES: iputils
+    home_assistant_config_yaml:
+      default_config: {}
+  roles:
+    - role: ansible-raspberry-home-assistant-docker
+      tags: home-assistant

@@ -1,0 +1,6 @@
+extends: default
+
+rules:
+  comments-indentation: disable
+  document-start: {present: false}
+  line-length: disable
