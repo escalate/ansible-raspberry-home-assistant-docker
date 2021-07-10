@@ -67,7 +67,7 @@
   notify: Restart home-assistant service
 
 - name: Pull Docker image
-  community.general.docker_image:
+  community.docker.docker_image:
     name: "homeassistant/home-assistant:{{ home_assistant_docker_image_version }}"
     source: pull
 
