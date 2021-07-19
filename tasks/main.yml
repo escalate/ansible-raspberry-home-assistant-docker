@@ -54,7 +54,7 @@
   ansible.builtin.git:
     repo: https://github.com/tribut/homeassistant-docker-venv.git
     dest: "{{ home_assistant_data_path }}/docker"
-    version: v2.2
+    version: master
   notify: Restart home-assistant service
 
 - name: Create configuration yaml
