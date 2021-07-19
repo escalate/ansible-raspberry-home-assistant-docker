@@ -2,5 +2,8 @@ roles:
   - name: common
     src: escalate.common
 
+  - name: cron
+    src: escalate.cron
+
   - name: docker
     src: escalate.docker
