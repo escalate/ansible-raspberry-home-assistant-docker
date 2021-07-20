@@ -27,7 +27,7 @@ This role relies on the following dependencies:
 - hosts: all
   roles:
     - role: escalate.home_assistant
-      tags: home-assistant
+      tags: homeassistant
 ```
 
 ## License
