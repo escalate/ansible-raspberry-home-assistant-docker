@@ -66,6 +66,15 @@
     mode: 0644
   notify: Restart home-assistant service
 
+- name: Create secrets yaml
+  ansible.builtin.template:
+    src: secrets.yaml.j2
+    dest: "{{ home_assistant_data_path }}/secrets.yaml"
+    owner: root
+    group: root
+    mode: 0644
+  notify: Restart home-assistant service
+
 - name: Pull Docker image
   community.docker.docker_image:
     name: "homeassistant/home-assistant:{{ home_assistant_docker_image_version }}"

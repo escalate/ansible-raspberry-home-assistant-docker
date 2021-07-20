@@ -19,3 +19,5 @@ home_assistant_env_vars:
 
 home_assistant_config_yaml:
   default_config: {}
+
+home_assistant_secrets_yaml: {}
