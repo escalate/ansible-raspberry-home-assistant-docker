@@ -19,4 +19,4 @@
       default_config: {}
   roles:
     - role: ansible-raspberry-home-assistant-docker
-      tags: home-assistant
+      tags: homeassistant
