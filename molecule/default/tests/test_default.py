@@ -15,8 +15,8 @@ def test_writeable_directories(host):
     d = host.file("/var/lib/home-assistant")
     assert d.is_directory
     assert d.user == "home-assistant"
-    assert d.group == "home-assistant"
-    assert d.mode == 0o700
+    assert d.group == "root"
+    assert d.mode == 0o775
 
 
 def test_home_assistant_service(host):

@@ -1,7 +1,8 @@
-- name: Add use
+- name: Create application user
   ansible.builtin.user:
     name: home-assistant
-    uid: 9000
+    uid: 10200
+    group: root
     create_home: false
     shell: /sbin/nologin
     groups: "{{ home_assistant_additional_user_groups }}"
@@ -16,13 +17,13 @@
   loop:
     - "{{ home_assistant_etc_path }}"
 
-- name: Create writeable data directories
+- name: Create writeable data directory
   ansible.builtin.file:
     path: "{{ home_assistant_data_path }}"
     state: directory
     owner: home-assistant
-    group: home-assistant
-    mode: 0700
+    group: root
+    mode: 0775
 
 - name: Define environment variables
   community.general.ini_file:

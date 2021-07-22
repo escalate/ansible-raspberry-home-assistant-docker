@@ -11,8 +11,8 @@
     home_assistant_additional_user_groups:
       - tty
     home_assistant_env_vars:
-      PUID: 9000
-      PGID: 9000
+      PUID: 10200
+      PGID: 0
       PACKAGES: iputils
     home_assistant_config_yaml:
       default_config: {}
