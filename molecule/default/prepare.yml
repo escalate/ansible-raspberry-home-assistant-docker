@@ -7,6 +7,9 @@
       log-opts:
         max-size: 100m
       storage-driver: vfs
+    docker_networks:
+      - name: internal
+        subnet: 172.25.0.0/16
   roles:
     - role: common
       tags: common
@@ -14,7 +17,3 @@
       tags: cron
     - role: docker
       tags: docker
-  tasks:
-    - name: Create network
-      command:
-        cmd: docker network create internal
