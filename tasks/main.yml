@@ -7,17 +7,7 @@
     shell: /sbin/nologin
     groups: "{{ home_assistant_additional_user_groups }}"
 
-- name: Create read-only directories
-  ansible.builtin.file:
-    path: "{{ item }}"
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
-  loop:
-    - "{{ home_assistant_etc_path }}"
-
-- name: Create writeable data directory
+- name: Create data directory
   ansible.builtin.file:
     path: "{{ home_assistant_data_path }}"
     state: directory

@@ -7,7 +7,6 @@
       maintainer: me@example.com
     home_assistant_docker_network: internal
     home_assistant_data_path: /var/lib/home-assistant
-    home_assistant_etc_path: /etc/home-assistant
     home_assistant_additional_user_groups:
       - tty
     home_assistant_env_vars:

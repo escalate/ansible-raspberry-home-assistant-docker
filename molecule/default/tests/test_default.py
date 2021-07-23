@@ -1,17 +1,8 @@
 """Role testing files using testinfra"""
 
 
-def test_read_only_directories(host):
-    """Check read-only directories"""
-    f = host.file("/etc/home-assistant")
-    assert f.is_directory
-    assert f.user == "root"
-    assert f.group == "root"
-    assert f.mode == 0o755
-
-
-def test_writeable_directories(host):
-    """Check writeable directories"""
+def test_data_directory(host):
+    """Check data directory"""
     d = host.file("/var/lib/home-assistant")
     assert d.is_directory
     assert d.user == "home-assistant"
