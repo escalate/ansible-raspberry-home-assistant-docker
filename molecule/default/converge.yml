@@ -13,7 +13,7 @@
       PUID: 10200
       PGID: 0
       PACKAGES: iputils
-    home_assistant_config_yaml:
+    home_assistant_config:
       default_config: {}
   roles:
     - role: ansible-raspberry-home-assistant-docker

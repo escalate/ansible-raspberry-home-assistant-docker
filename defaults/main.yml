@@ -14,7 +14,8 @@ home_assistant_env_vars:
   PGID: 0
   PACKAGES: iputils
 
-home_assistant_config_yaml:
+# https://www.home-assistant.io/docs/configuration/
+home_assistant_config:
   default_config: {}
 
 home_assistant_secrets_yaml: {}
