@@ -27,7 +27,7 @@
 
 - name: Define environment variables
   community.general.ini_file:
-    path: "{{ home_assistant_etc_path }}/home-assistant.env"
+    path: "/etc/home-assistant.env"
     section: ""
     option: "{{ item.key }}"
     value: "{{ item.value }}"
@@ -40,7 +40,7 @@
 
 - name: Define Docker container labels
   community.general.ini_file:
-    path: "{{ home_assistant_etc_path }}/home-assistant.label"
+    path: "/etc/home-assistant.label"
     section: ""
     option: "{{ item.key }}"
     value: "{{ item.value }}"
