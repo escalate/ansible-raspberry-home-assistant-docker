@@ -26,7 +26,6 @@ homeassistant/home-assistant:{{ home_assistant_docker_image_version }}
 ExecStop=/usr/bin/docker stop %n
 SyslogIdentifier=%n
 TimeoutStartSec=infinity
-TimeoutStopSec=infinity
 StartLimitInterval=30
 StartLimitBurst=5
 Restart=on-failure
