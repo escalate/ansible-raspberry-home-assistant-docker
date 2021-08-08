@@ -6,18 +6,19 @@ home_assistant_docker_network: bridge
 home_assistant_backup_path: /var/backups/home-assistant
 home_assistant_data_path: /var/lib/home-assistant
 
-home_assistant_additional_user_groups: []
-  # - tty
+# https://www.home-assistant.io/docs/configuration/
+home_assistant_config:
+  default_config: {}
 
+# https://www.home-assistant.io/docs/configuration/yaml/#environment-variables
 home_assistant_env_vars:
   # https://github.com/tribut/homeassistant-docker-venv
   PUID: 10200
   PGID: 0
   PACKAGES: iputils
 
-# https://www.home-assistant.io/docs/configuration/
-home_assistant_config:
-  default_config: {}
+home_assistant_additional_user_groups: []
+  # - tty
 
 # https://www.home-assistant.io/docs/configuration/secrets/
 home_assistant_secrets: {}

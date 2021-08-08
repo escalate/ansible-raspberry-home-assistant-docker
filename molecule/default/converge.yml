@@ -8,14 +8,14 @@
     home_assistant_docker_network: internal
     home_assistant_backup_path: /var/backups/home-assistant
     home_assistant_data_path: /var/lib/home-assistant
-    home_assistant_additional_user_groups:
-      - tty
+    home_assistant_config:
+      default_config: {}
     home_assistant_env_vars:
       PUID: 10200
       PGID: 0
       PACKAGES: iputils
-    home_assistant_config:
-      default_config: {}
+    home_assistant_additional_user_groups:
+      - tty
     home_assistant_secrets:
       password: Secr3t
   roles:
