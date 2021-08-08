@@ -17,8 +17,8 @@ galaxy_info:
     - systemd
     - docker
     - container
+    - homeassistant
     - home
     - assistant
     - hass
-    - homeassistant
 dependencies: []
