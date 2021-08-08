@@ -20,14 +20,14 @@ def test_backup_directory(host):
 
 
 def test_home_assistant_service(host):
-    """Check home-assistant service"""
+    """Check Home Assistant service"""
     s = host.service("home-assistant")
     assert s.is_running
     assert s.is_enabled
 
 
 def test_home_assistant_docker_container(host):
-    """Check home-assistant docker container"""
+    """Check Home Assistant docker container"""
     d = host.docker("home-assistant.service").inspect()
     assert d["HostConfig"]["Memory"] == 1073741824
     assert d["Config"]["Image"] == "homeassistant/home-assistant:latest"
