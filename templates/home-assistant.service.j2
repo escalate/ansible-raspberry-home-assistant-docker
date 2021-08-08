@@ -17,6 +17,7 @@ ExecStart=/usr/bin/docker run \
 {% if home_assistant_docker_labels | dict2items | length > 0 %}
 --label-file=/etc/home-assistant.label \
 {% endif %}
+--mount=type=bind,source={{ home_assistant_backup_path }},destination=/backup \
 --mount=type=bind,source={{ home_assistant_data_path }},destination=/config \
 --mount=type=bind,source={{ home_assistant_data_path }}/docker/run,destination=/etc/services.d/home-assistant/run \
 --network={{ home_assistant_docker_network }} \

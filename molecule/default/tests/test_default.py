@@ -10,6 +10,15 @@ def test_data_directory(host):
     assert d.mode == 0o775
 
 
+def test_backup_directory(host):
+    """Check backup directory"""
+    b = host.file("/var/backups/home-assistant")
+    assert b.is_directory
+    assert b.user == "home-assistant"
+    assert b.group == "root"
+    assert b.mode == 0o775
+
+
 def test_home_assistant_service(host):
     """Check home-assistant service"""
     s = host.service("home-assistant")
@@ -27,3 +36,10 @@ def test_home_assistant_docker_container(host):
     assert \
         "home-assistant" in \
         d["NetworkSettings"]["Networks"]["internal"]["Aliases"]
+
+
+def test_backup_cron_job(host):
+    """Check backup cron job"""
+    cmd = "/usr/local/bin/backup-home-assistant.sh"
+    f = host.file("/var/spool/cron/crontabs/root").content_string
+    assert cmd in f

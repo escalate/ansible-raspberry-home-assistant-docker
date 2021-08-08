@@ -3,6 +3,7 @@ home_assistant_docker_memory: 1G
 home_assistant_docker_labels: {}
 home_assistant_docker_network: bridge
 
+home_assistant_backup_path: /var/backups/home-assistant
 home_assistant_data_path: /var/lib/home-assistant
 
 home_assistant_additional_user_groups: []

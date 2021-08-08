@@ -15,6 +15,14 @@
     group: root
     mode: 0775
 
+- name: Create backup directory
+  ansible.builtin.file:
+    path: "{{ home_assistant_backup_path }}"
+    state: directory
+    owner: home-assistant
+    group: root
+    mode: 0775
+
 - name: Create service configuration
   ansible.builtin.template:
     src: configuration.yaml.j2
@@ -100,3 +108,18 @@
   until: result.status == 401
   retries: 60
   delay: 1
+
+- name: Create backup script
+  ansible.builtin.template:
+    src: backup-home-assistant.sh.j2
+    dest: /usr/local/bin/backup-home-assistant.sh
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Add backup cron job
+  ansible.builtin.cron:
+    name: Backup Home Assistant
+    minute: "0"
+    job: "/usr/local/bin/backup-home-assistant.sh || echo \"ERROR: A problem occurred during backup of Home Assistant. Please check the logfiles. journalctl -t backup-home-assistant.sh\""  # noqa 204
+    user: root
