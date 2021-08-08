@@ -16,6 +16,8 @@
       PACKAGES: iputils
     home_assistant_config:
       default_config: {}
+    home_assistant_secrets:
+      password: Secr3t
   roles:
     - role: ansible-raspberry-home-assistant-docker
       tags: homeassistant
