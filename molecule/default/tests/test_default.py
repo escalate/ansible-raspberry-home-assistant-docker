@@ -19,6 +19,28 @@ def test_backup_directory(host):
     assert b.mode == 0o775
 
 
+def test_home_assistant_config(host):
+    """Check Home Assistant config file"""
+    f = host.file("/var/lib/home-assistant/configuration.yaml")
+    assert f.is_file
+    assert f.user == "root"
+    assert f.group == "root"
+
+    config = "default_config: {}"
+    assert config in f.content_string
+
+
+def test_home_assistant_secrets(host):
+    """Check Home Assistant secrets file"""
+    f = host.file("/var/lib/home-assistant/secrets.yaml")
+    assert f.is_file
+    assert f.user == "root"
+    assert f.group == "root"
+
+    config = "password: Secr3t"
+    assert config in f.content_string
+
+
 def test_home_assistant_service(host):
     """Check Home Assistant service"""
     s = host.service("home-assistant")
@@ -32,6 +54,7 @@ def test_home_assistant_docker_container(host):
     assert d["HostConfig"]["Memory"] == 1073741824
     assert d["Config"]["Image"] == "homeassistant/home-assistant:latest"
     assert d["Config"]["Labels"]["maintainer"] == "me@example.com"
+    assert "PACKAGES=iputils" in d["Config"]["Env"]
     assert "internal" in d["NetworkSettings"]["Networks"]
     assert \
         "home-assistant" in \
