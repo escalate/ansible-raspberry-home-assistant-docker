@@ -18,7 +18,6 @@ jobs:
       - name: Install test dependencies
         run: |
           python -m pip install --disable-pip-version-check editorconfig-checker
-          sudo ln --symbolic "$(which editorconfig-checker)" /usr/local/bin/ec
           python -m pip install --disable-pip-version-check ansible molecule[docker,lint,test]
 
       - name: Run Molecule tests
