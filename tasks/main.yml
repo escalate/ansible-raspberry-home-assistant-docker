@@ -34,16 +34,12 @@
   notify: Restart home-assistant service
 
 - name: Define environment variables
-  community.general.ini_file:
-    path: /etc/home-assistant.env
-    section: ""
-    option: "{{ item.key }}"
-    value: "{{ item.value }}"
-    no_extra_spaces: true
+  ansible.builtin.template:
+    src: home-assistant.env.j2
+    dest: /etc/home-assistant.env
     owner: root
     group: root
     mode: 0644
-  loop: "{{ home_assistant_env_vars | dict2items }}"
   notify: Restart home-assistant service
 
 - name: Create Docker non-root start script
@@ -63,16 +59,12 @@
   notify: Restart home-assistant service
 
 - name: Define Docker container labels
-  community.general.ini_file:
-    path: /etc/home-assistant.label
-    section: ""
-    option: "{{ item.key }}"
-    value: "{{ item.value }}"
-    no_extra_spaces: true
+  ansible.builtin.template:
+    src: home-assistant.label.j2
+    dest: /etc/home-assistant.label
     owner: root
     group: root
     mode: 0644
-  loop: "{{ home_assistant_docker_labels | dict2items }}"
   notify: Restart home-assistant service
 
 - name: Pull Docker image
