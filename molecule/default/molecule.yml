@@ -28,6 +28,9 @@ platforms:
 
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      interpreter_python: /usr/bin/python3
   log: true
 
 verifier:
