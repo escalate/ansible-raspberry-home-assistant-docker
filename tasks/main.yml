@@ -112,6 +112,7 @@
 - name: Add backup cron job
   ansible.builtin.cron:
     name: Backup Home Assistant
-    minute: "0"
+    minute: "30"
+    hour: "3"
     job: "/usr/local/bin/backup-home-assistant.sh || echo \"ERROR: A problem occurred during backup of Home Assistant. Please check the logfiles. journalctl -t backup-home-assistant.sh\""  # noqa 204
     user: root
