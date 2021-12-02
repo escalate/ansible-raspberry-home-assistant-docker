@@ -9,6 +9,8 @@ home_assistant_data_path: /var/lib/home-assistant
 # https://www.home-assistant.io/docs/configuration/
 home_assistant_config:
   default_config: {}
+  http:
+    server_host: 0.0.0.0
 
 # https://www.home-assistant.io/docs/configuration/yaml/#environment-variables
 home_assistant_env_vars:
