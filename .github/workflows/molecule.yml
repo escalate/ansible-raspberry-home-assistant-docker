@@ -6,9 +6,6 @@ jobs:
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        version: [buster, bullseye]
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -24,8 +21,6 @@ jobs:
           python -m pip install --disable-pip-version-check ansible ansible-lint molecule[docker,lint,test]
 
       - name: Run Molecule tests
-        env:
-          MOLECULE_DEBIAN_VERSION: ${{ matrix.version }}
         run: |
           make version
           make test

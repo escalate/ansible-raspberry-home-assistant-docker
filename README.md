@@ -2,7 +2,7 @@
 
 # Ansible Role: Raspberry - Home Assistant (Docker)
 
-An Ansible role that manages [Home Assistant](https://www.home-assistant.io/) Docker container with systemd on Raspberry Pi OS.
+An Ansible role that manages [Home Assistant](https://www.home-assistant.io/) Docker container with systemd on Raspberry Pi OS (Debian Bullseye).
 
 ## Install
 
