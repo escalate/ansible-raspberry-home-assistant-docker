@@ -8,13 +8,13 @@ echo "Start Home Assistant backup"
 BACKUP_DIR="{{ home_assistant_backup_path }}"
 BACKUP_FILE="{{ home_assistant_backup_path }}/home-assistant-config-$(date +%Y-%m-%d-%H-%M).tar"
 
-echo "Start backup of Home Assistant config"
+echo "Create backup of Home Assistant config"
 tar --create --file "${BACKUP_FILE}" --directory "{{ home_assistant_data_path }}/" .
 
 echo "Compress backup of Home Assistant config"
 bzip2 "${BACKUP_FILE}"
 
-echo "Delete old Home Assistant config backups"
+echo "Delete Home Assistant backup archives older than 7 days"
 find "${BACKUP_DIR}" -name "*.bz2" -type f -mtime +7 -delete
 
 echo "Finish Home Assistant backup"
