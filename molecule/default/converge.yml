@@ -21,3 +21,8 @@
   roles:
     - role: ansible-raspberry-home-assistant-docker
       tags: homeassistant
+  post_tasks:
+    - name: Create marker file for restore
+      ansible.builtin.copy:
+        dest: /var/tmp/ALLOW_RESTORE_OF_HOME_ASSISTANT
+        content: ""

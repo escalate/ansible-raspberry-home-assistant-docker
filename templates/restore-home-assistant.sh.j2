@@ -1,0 +1,44 @@
+#!/bin/bash
+set -e -E -u -C -o pipefail
+
+exec 1> >(logger --stderr --tag $(basename $0)) 2>&1
+
+if [[ "$EUID" -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
+
+echo "Start restore of Home Assistant"
+
+RESTORE_MARKER="/var/tmp/ALLOW_RESTORE_OF_HOME_ASSISTANT"
+
+if [ ! -f "${RESTORE_MARKER}" ]; then
+    echo "Run - touch ${RESTORE_MARKER} - to allow restore of Home Assistant"
+    exit 1
+fi
+
+BACKUP_DIR="{{ home_assistant_backup_path }}"
+LAST_BACKUP_ARCHIVE="$(ls -t ${BACKUP_DIR}/home-assistant-config-*.tar.bz2 | head --lines 1)"
+LAST_BACKUP_DIR="${BACKUP_DIR}/$(basename --suffix .tar.bz2 ${LAST_BACKUP_ARCHIVE})"
+echo "Selected Home Assistant backup archive: ${LAST_BACKUP_ARCHIVE}"
+
+echo "Stop Home Assistant service"
+systemctl stop home-assistant.service
+
+while [ "$(docker ps --all --quiet --filter status=running --filter name=home-assistant.service)" ]; do
+    echo "Home Assistant service is still running - wait 5 secs"
+    sleep 5
+done
+
+echo "Decompress backup archive of Home Assistant config"
+mkdir --parents "${LAST_BACKUP_DIR}"
+tar --extract --bzip2 --file "${LAST_BACKUP_ARCHIVE}" --directory "${LAST_BACKUP_DIR}"
+
+echo "Restore Home Assistant config"
+rm --recursive --force "{{ home_assistant_data_path }}"
+mv "${LAST_BACKUP_DIR}" "{{ home_assistant_data_path }}"
+
+echo "Start Home Assistant service"
+systemctl start home-assistant.service
+
+echo "Remove restore marker"
+rm "${RESTORE_MARKER}"
+
+echo "Finish restore of Home Assistant"

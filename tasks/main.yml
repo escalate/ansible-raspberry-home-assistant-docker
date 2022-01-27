@@ -110,6 +110,14 @@
     group: root
     mode: 0755
 
+- name: Create restore script
+  ansible.builtin.template:
+    src: restore-home-assistant.sh.j2
+    dest: /usr/local/bin/restore-home-assistant.sh
+    owner: root
+    group: root
+    mode: 0755
+
 - name: Add backup cron job
   ansible.builtin.cron:
     name: Backup Home Assistant
