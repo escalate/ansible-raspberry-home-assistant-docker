@@ -6,7 +6,7 @@ exec 1> >(logger --tag $(basename $0)) 2>&1
 echo "Start Home Assistant backup"
 
 BACKUP_DIR="{{ home_assistant_backup_path }}"
-BACKUP_FILE="{{ home_assistant_backup_path }}/home-assistant-config-$(date +%Y-%m-%d-%H-%M).tar"
+BACKUP_FILE="{{ home_assistant_backup_path }}/home-assistant-$(date +%Y-%m-%d-%H-%M).tar"
 
 echo "Create backup of Home Assistant config"
 tar --create --file "${BACKUP_FILE}" --directory "{{ home_assistant_data_path }}/" .
