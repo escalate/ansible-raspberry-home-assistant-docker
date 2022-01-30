@@ -15,6 +15,6 @@ echo "Compress backup of Home Assistant config"
 bzip2 "${BACKUP_FILE}"
 
 echo "Delete Home Assistant backup archives older than 7 days"
-find "${BACKUP_DIR}" -name "*.bz2" -type f -mtime +7 -delete
+find "${BACKUP_DIR}" -name "*.tar.bz2" -type f -mtime +7 -delete
 
 echo "Finish Home Assistant backup"
