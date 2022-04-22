@@ -90,7 +90,7 @@
     daemon_reload: true
 
 - name: Force all notified handlers to run at this point
-  meta: flush_handlers
+  ansible.builtin.meta: flush_handlers
 
 - name: Wait for service to become available
   ansible.builtin.uri:
