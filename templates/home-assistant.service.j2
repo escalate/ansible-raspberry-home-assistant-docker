@@ -21,7 +21,7 @@ ExecStart=/usr/bin/docker run \
 --mount=type=bind,source={{ home_assistant_data_path }},destination=/config \
 --mount=type=bind,source={{ home_assistant_data_path }}/docker/run,destination=/etc/services.d/home-assistant/run \
 --network={{ home_assistant_docker_network }} \
-{% if promtail_docker_network not in ['bridge', 'host', 'none'] %}
+{% if home_assistant_docker_network not in ['bridge', 'host', 'none'] %}
 --network-alias=home-assistant \
 {% endif %}
 --publish=127.0.0.1:8123:8123 \
