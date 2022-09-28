@@ -24,7 +24,7 @@ ExecStart=/usr/bin/docker run \
 {% if home_assistant_docker_network not in ['bridge', 'host', 'none'] %}
 --network-alias=home-assistant \
 {% endif %}
---publish=127.0.0.1:8123:8123 \
+--publish={{ home_assistant_docker_publish_ip_address }}:8123:8123 \
 homeassistant/home-assistant:{{ home_assistant_docker_image_version }}
 ExecStop=/usr/bin/docker stop %n
 SyslogIdentifier=%n
