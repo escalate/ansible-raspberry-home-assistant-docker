@@ -7,3 +7,8 @@ roles:
 
   - name: docker
     src: escalate.docker
+
+collections:
+  - name: community.docker
+
+  - name: community.general

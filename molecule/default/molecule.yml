@@ -1,8 +1,7 @@
 dependency:
   name: galaxy
   options:
-    role-file: requirements.yml
-    requirements-file: collections.yml
+    requirements-file: requirements.yml
 
 driver:
   name: docker
