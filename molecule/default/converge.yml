@@ -6,6 +6,8 @@
     home_assistant_docker_labels:
       maintainer: me@example.com
     home_assistant_docker_network: internal
+    home_assistant_docker_publish_ports:
+      - 127.0.0.1:8123:8123
     home_assistant_backup_path: /var/backups/home-assistant
     home_assistant_data_path: /var/lib/home-assistant
     home_assistant_config:
