@@ -24,7 +24,11 @@ ExecStart=/usr/bin/docker run \
 {% if home_assistant_docker_network not in ['bridge', 'host', 'none'] %}
 --network-alias=home-assistant \
 {% endif %}
---publish={{ home_assistant_docker_publish_ip_address }}:8123:8123 \
+{% if home_assistant_docker_publish_ports | length > 0 %}
+{% for port in home_assistant_docker_publish_ports %}
+--publish={{ port }} \
+{% endfor %}
+{% endif %}
 homeassistant/home-assistant:{{ home_assistant_docker_image_version }}
 ExecStop=/usr/bin/docker stop %n
 SyslogIdentifier=%n
