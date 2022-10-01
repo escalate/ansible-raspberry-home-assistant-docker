@@ -20,9 +20,9 @@ LAST_BACKUP_DIR="${BACKUP_DIR}/$(basename --suffix .tar.bz2 ${LAST_BACKUP_ARCHIV
 echo "Selected Home Assistant backup archive: ${LAST_BACKUP_ARCHIVE}"
 
 echo "Stop Home Assistant service"
-systemctl stop home-assistant.service
+systemctl stop home-assistant
 
-while [ "$(docker ps --all --quiet --filter status=running --filter name=home-assistant.service)" ]; do
+while [ "$(docker ps --all --quiet --filter status=running --filter name=home-assistant)" ]; do
     echo "Home Assistant service is still running - wait 5 secs"
     sleep 5
 done
@@ -36,7 +36,7 @@ rm --recursive --force "{{ home_assistant_data_path }}"
 mv "${LAST_BACKUP_DIR}" "{{ home_assistant_data_path }}"
 
 echo "Start Home Assistant service"
-systemctl start home-assistant.service
+systemctl start home-assistant
 
 echo "Remove restore marker"
 rm "${RESTORE_MARKER}"
