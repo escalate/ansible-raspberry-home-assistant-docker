@@ -15,7 +15,7 @@ lint: |
 
 platforms:
   - name: instance
-    image: debian:${MOLECULE_DEBIAN_VERSION:-bullseye}
+    image: debian:bullseye
     dockerfile: Dockerfile.j2
     override_command: false
     tmpfs:
