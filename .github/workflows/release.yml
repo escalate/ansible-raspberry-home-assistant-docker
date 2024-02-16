@@ -2,7 +2,7 @@ name: Release
 'on':
   workflow_run:
     workflows:
-      - Molecule
+      - Test
     branches:
       - master
     types:
@@ -10,20 +10,7 @@ name: Release
 jobs:
   release:
     name: Release
-    runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 'lts/*'
-
-      - name: Create Github release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+    uses: escalate/github-actions-workflows/.github/workflows/release-ansible.yml@master
+    secrets:
+      ANSIBLE_GALAXY_API_TOKEN: ${{ secrets.ANSIBLE_GALAXY_API_TOKEN }}
