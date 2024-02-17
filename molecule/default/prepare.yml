@@ -11,9 +11,9 @@
       - name: internal
         subnet: 172.25.0.0/16
   roles:
-    - role: common
+    - role: escalate.common
       tags: common
-    - role: cron
+    - role: escalate.cron
       tags: cron
-    - role: docker
+    - role: escalate.docker
       tags: docker
