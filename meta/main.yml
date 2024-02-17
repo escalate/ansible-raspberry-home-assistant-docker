@@ -4,11 +4,12 @@ galaxy_info:
   author: Felix Boerner
   description: Manage Home Assistant Docker container with systemd on Raspberry Pi OS
   license: MIT
-  min_ansible_version: "2.13"
+  min_ansible_version: "2.16"
   platforms:
     - name: Debian
       versions:
         - bullseye
+        - bookworm
   galaxy_tags:
     - raspberry
     - pi
