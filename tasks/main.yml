@@ -99,7 +99,7 @@
       - 401
   register: result
   until: result.status == 401
-  retries: 300
+  retries: 600
   delay: 1
 
 - name: Create backup script
