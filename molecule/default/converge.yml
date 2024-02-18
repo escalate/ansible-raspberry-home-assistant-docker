@@ -13,6 +13,7 @@
     home_assistant_config:
       default_config: {}
     home_assistant_env_vars:
+      TZ: Europe/Berlin
       PUID: 10200
       PGID: 0
       PACKAGES: iputils

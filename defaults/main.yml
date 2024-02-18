@@ -17,6 +17,7 @@ home_assistant_config:
 # https://www.home-assistant.io/docs/configuration/yaml/#environment-variables
 home_assistant_env_vars:
   # https://github.com/tribut/homeassistant-docker-venv
+  TZ: Europe/Berlin
   PUID: 10200
   PGID: 0
   PACKAGES: iputils
