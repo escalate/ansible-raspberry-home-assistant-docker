@@ -70,7 +70,7 @@
 
 - name: Pull Docker image
   community.docker.docker_image:
-    name: "homeassistant/home-assistant:{{ home_assistant_docker_image_version }}"
+    name: "ghcr.io/home-assistant/home-assistant:{{ home_assistant_docker_image_version }}"
     source: pull
 
 - name: Create systemd service
