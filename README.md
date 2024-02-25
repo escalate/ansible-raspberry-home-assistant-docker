@@ -2,13 +2,7 @@
 
 # Ansible Role: Raspberry - Home Assistant (Docker)
 
-An Ansible role that manages [Home Assistant](https://www.home-assistant.io/) Docker container with systemd on Raspberry Pi OS (Debian Bullseye).
-
-## Install
-
-```
-$ ansible-galaxy install escalate.home_assistant
-```
+An Ansible role that manages [Home Assistant](https://www.home-assistant.io/) Docker container with systemd on Raspberry Pi OS (Debian Bookworm).
 
 ## Role Variables
 
@@ -20,6 +14,12 @@ This role relies on the following dependencies:
 
 * Roles: [requirements.yml](https://github.com/escalate/ansible-raspberry-home-assistant-docker/blob/master/requirements.yml)
 * Collections: [requirements.yml](https://github.com/escalate/ansible-raspberry-home-assistant-docker/blob/master/requirements.yml)
+
+## Installation
+
+```
+$ ansible-galaxy role install escalate.home_assistant
+```
 
 ## Example Playbook
 
