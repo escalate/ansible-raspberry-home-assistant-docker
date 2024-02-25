@@ -82,10 +82,16 @@
     mode: 0644
   notify: Restart home-assistant service
 
-- name: Start and enable service
+- name: Start service
   ansible.builtin.systemd:
     name: home-assistant
     state: started
+    daemon_reload: true
+  register: home_assistant_service_started
+
+- name: Enable service
+  ansible.builtin.systemd:
+    name: home-assistant
     enabled: true
     daemon_reload: true
 
