@@ -12,8 +12,8 @@ Please see [defaults/main.yml](https://github.com/escalate/ansible-raspberry-hom
 
 This role relies on the following dependencies:
 
-* Roles: [requirements.yml](https://github.com/escalate/ansible-raspberry-home-assistant-docker/blob/master/requirements.yml)
-* Collections: [requirements.yml](https://github.com/escalate/ansible-raspberry-home-assistant-docker/blob/master/requirements.yml)
+- Roles: [requirements.yml](https://github.com/escalate/ansible-raspberry-home-assistant-docker/blob/master/requirements.yml)
+- Collections: [requirements.yml](https://github.com/escalate/ansible-raspberry-home-assistant-docker/blob/master/requirements.yml)
 
 ## Installation
 

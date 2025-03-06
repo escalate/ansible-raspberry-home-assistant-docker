@@ -21,6 +21,9 @@ platforms:
 
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      roles_path: ${MOLECULE_PROJECT_DIRECTORY}/..:~/.ansible/roles
   log: true
 
 verifier:
